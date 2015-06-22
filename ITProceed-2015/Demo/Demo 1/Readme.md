@@ -2,8 +2,8 @@
 
 #####Discover the [Azure portal][1] and the [new Azure portal][2].
 
-Actions taken:
-1. Log into portal  
+Actions taken:  
+1. Log into portal    
 2. Browse the different elements  
 3. Select the Virtual Machines tab  
 4. Click on **New** in the bottom banner  
