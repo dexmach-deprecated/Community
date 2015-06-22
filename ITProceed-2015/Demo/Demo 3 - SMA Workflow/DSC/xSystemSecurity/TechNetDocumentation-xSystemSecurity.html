@@ -1,0 +1,234 @@
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">The<strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> xSystemSecurity</span></strong> module is a part of the Windows PowerShell Desired State Configuration (DSC) Resource Kit, which  is a collection of DSC Resources produced by the PowerShell Team. This module contains the <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xUAC </span></strong><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;">and </span></strong><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xIEEsc</span></strong> resources. <span class="GramE"><strong>xUAC</strong></span> handles how and when the User Account Control Windows Prompt shows up or doesn't show up. <span class="GramE"><strong>xIEEsc</strong></span><strong> </strong>enables or disables IE Enhanced Security Configuration. </span></p>
+<div class="WordSection1">
+<p><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">All of the resources in the DSC Resource Kit are provided AS IS, and are not supported through any Microsoft standard support program or service. The "x" in xSystemSecurity stands  for experimental</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">, which means that these resources will be <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">fix forward</span></strong> and monitored by the module owner(s).</span></p>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Please leave comments, feature requests, and bug reports in the Q &amp; A tab for this module.</span></p>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">If you would like to modify <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xSystemSecurity</span></strong> module, feel free. When modifying, please update the module name, resource friendly name, and MOF class name (instructions below). As specified in the license, you may  copy or modify this resource as long as they are used on the Windows Platform.</span></p>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">For more information about Windows PowerShell Desired State Configuration, check out the blog posts on the <a href="http://blogs.msdn.com/b/powershell/">PowerShell Blog</a> (<a href="http://blogs.msdn.com/b/powershell/archive/2013/11/01/configuration-in-a-devops-world-windows-powershell-desired-state-configuration.aspx">this</a> is a good starting point). There  are also great community resources, such as <a href="http://powershell.org/wp/tag/dsc/"> PowerShell.org</a>, or <a href="http://www.powershellmagazine.com/tag/dsc/">PowerShell Magazine</a>. For more information on the DSC Resource Kit, check out <a href="http://go.microsoft.com/fwlink/?LinkID=389546">this blog post</a>.</span></p>
+<h1><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Installation</span></h1>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">To install </span> <strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xSystemSecurity</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> </span><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">module </span></p>
+<ul type="disc">
+<li class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Unzip the content under $env:ProgramFiles\WindowsPowerShell\Modules folder</span> </li>
+</ul>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">To confirm installation:</span></p>
+<ul type="disc">
+<li class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Run <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Get-DSCResource</span></strong> to see that </span><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xUAC </span></strong><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;">and </span></strong><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xIEEsc </span></strong><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;">are</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> among the DSC Resources listed</span> </li>
+</ul>
+<h1><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Requirements</span></h1>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">This module requires the latest version of PowerShell (v4.0, which ships in Windows 8.1 or Windows Server 2012 R2). To easily use PowerShell 4.0 on older operating systems, <a href="http://www.microsoft.com/en-us/download/details.aspx?id=40855">install WMF 4.0</a>. Please read the installation instructions that are present on both the download page and the release notes for WMF 4.0.</span></p>
+<h1><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Description</span></h1>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">The </span> <strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xSystemSecurity</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> </span><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">module contains the </span><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xUAC </span></strong><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;">and </span></strong><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xIEEsc</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> DSC Resources. </span><span class="GramE"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xUAC</span></strong></span><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> handles how and when the User Account Control Windows Prompt  shows up or doesn't show up. <span class="GramE"><strong>xIEEsc</strong></span><strong> </strong>enables or disables IE Enhanced Security Configuration</span><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">.</span></p>
+<h1><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Details</span></h1>
+<p><span class="GramE"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xUAC</span></strong></span><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> resource has the following property:</span></p>
+<ul type="disc">
+<li class="MsoNormal"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Setting</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The  desired User Account Control Setting. </span></li>
+</ul>
+<p class="MsoNormal"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;">&nbsp;</span></strong></p>
+<p class="MsoNormal"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;">The </span></strong><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Setting</span></strong><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;"> property can have one of the following values &ndash; </span></strong><strong><span style="font-weight: normal;">&nbsp;</span></strong></p>
+<p class="MsoNormal"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-weight: normal;">&nbsp;</span></strong></span></p>
+<table class="MsoTable15Grid4Accent5" style="border-collapse: collapse; border: none;" border="1" cellspacing="0" cellpadding="0" summary="Table describing UAC settings">
+<tbody>
+<tr>
+<td style="border: solid #4472C4 1.0pt; border-right: none; background: #4472C4; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="text-align: center;"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; color: white;">Setting</span></strong></span></p>
+</td>
+<td style="border-top: solid #4472C4 1.0pt; border-left: none; border-bottom: solid #4472C4 1.0pt; border-right: none; background: #4472C4; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="text-align: center;"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; color: white;">Description</span></strong></span></p>
+</td>
+<td style="border: solid #4472C4 1.0pt; border-left: none; background: #4472C4; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal" style="text-align: center;"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; color: white;">Security Impact</span></strong></span></p>
+</td>
+</tr>
+<tr>
+<td style="border: solid #8EAADB 1.0pt; border-top: none; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">AlwaysNotify</span></strong></span></p>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will be notified before programs make changes to your computer or to Windows settings that require the permissions of an administrator. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">When you're notified, your desktop will be dimmed, and you must either approve or deny the request in the UAC dialog box before you can do anything else on your computer.  The dimming of your desktop is referred to as the secure desktop because other programs can't run while it's dimmed. </span></li>
+</ul>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">This is the most secure setting. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">When you are notified, you should carefully read the contents of each dialog box before allowing changes to be made to your computer. </span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="border: solid #8EAADB 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">NotifyChanges</span></strong></span></p>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will be notified before programs make changes to your computer that require the permissions of an administrator. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will not be notified if you try to make changes to Windows settings that require the permissions of an administrator. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will be notified if a program outside of Windows tries to make changes to a Windows setting. </span></li>
+</ul>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">It's usually safe to allow changes to be made to Windows settings without you being notified. However, certain programs that come with Windows can have commands or data  passed to them, and malicious software can take advantage of this by using these programs to install files or change settings on your computer. You should always be careful about which programs you allow to run on your computer. </span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="border: solid #8EAADB 1.0pt; border-top: none; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">NotifyChangesWithoutDimming</span></strong></span></p>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will be notified before programs make changes to your computer that require the permissions of an administrator. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will not be notified if you try to make changes to Windows settings that require the permissions of an administrator. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will be notified if a program outside of Windows tries to make changes to a Windows setting. </span></li>
+</ul>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">This setting is the same as "NotifyChanges" but you are not notified on the secure desktop. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">Because the UAC dialog box isn't on the secure desktop with this setting, other programs might be able to interfere with the dialog's visual appearance. This is a small  security risk if you already have a malicious program running on your computer. </span> </li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="border: solid #8EAADB 1.0pt; border-top: none; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">NeverNotify</span></strong></span></p>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will not be notified before any changes are made to your computer. If you are logged on as an administrator, programs can make changes to your computer without you  knowing about it. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">If you are logged on as a standard user, any changes that require the permissions of an administrator will automatically be denied. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">If you select this setting, you will need to restart the computer to complete the process of turning off UAC. Once UAC is off, people that log on as administrator will  always have the permissions of an administrator. </span></li>
+</ul>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">This is the least secure setting. When you set UAC to never notify, you open up your computer to potential security risks. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">If you set UAC to never notify, you should be careful about which programs you run, because they will have the same access to the computer as you do. This includes reading  and making changes to protected system areas, <span class="GramE">your</span> personal data, saved files, and anything else stored on the computer. Programs will also be able to communicate and transfer information to and from anything your computer connects  with, including the Internet. </span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="border: solid #8EAADB 1.0pt; border-top: none; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<p class="MsoNormal"><span style="font-size: medium;"><strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">NeverNotifyAndDisableAll</span></strong></span></p>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">You will not be notified before any changes are made to your computer. If you are logged on as an administrator, programs can make changes to your computer without you  knowing about it. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">If you are logged on as a standard user, any changes that require the permissions of an administrator will automatically be denied. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">If you select this setting, you will need to restart the computer to complete the process of turning off UAC. Once UAC is off, people that log on as administrator will  always have the permissions of an administrator. </span></li>
+</ul>
+</td>
+<td style="border-top: none; border-left: none; border-bottom: solid #8EAADB 1.0pt; border-right: solid #8EAADB 1.0pt; background: #D9E2F3; padding: 0cm 5.4pt 0cm 5.4pt;" valign="top">
+<ul type="disc">
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">This is the least secure setting same as &ldquo;NeverNotify&rdquo;, but in addition EnableLUA registry key is disabled. </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">EnableLUA controls the behavior of all UAC policy settings for the computer. If you change this policy setting, you must restart your computer </span></li>
+<li class="MsoNormal"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">We do not recommend using this setting, but it can be selected for systems that use programs that are not certified for Windows&reg; 8, Windows Server&reg; 2012, <span class="GramE">Windows</span>&reg; 7 or Windows Server&reg; 2008 R2 because they do not support UAC. </span></li>
+</ul>
+<p class="MsoNormal" style="margin-left: 36.0pt;"><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;; font-size: medium;">&nbsp;</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><span class="GramE"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xIEEsc</span></strong></span><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> resource has the following properties:</span></p>
+<ul type="disc">
+<li class="MsoNormal"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">UserRole</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>&nbsp;&nbsp;&nbsp; </span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Enable or Disable ESC for Administrators or Users</span> </li>
+<li class="MsoNormal"><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">IsEnabled</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Determines if ESC is Enabled or Disabled</span> </li>
+</ul>
+<p class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">&nbsp;</span></p>
+<p class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Please refer to this article for the effects &amp; security impact of Enhanced Security Configuration. <a href="http://technet.microsoft.com/en-us/library/dd883248(v=ws.10).aspx">http://technet.microsoft.com/en-us/library/dd883248(v=ws.10).aspx</a> </span></p>
+<h1><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Renaming Requirements</span></h1>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">When making changes to these resources, we suggest the following practice:</span></p>
+<p class="MsoNormal" style="margin-left: 36.0pt; text-indent: -18.0pt;"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"><span>1.<span style="font: 7.0pt &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Update the following names by prefixing your company/community name and replacing the <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">"x"</span></strong> with <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">"c"</span></strong> (short for "Community") or another prefix of your choice: </span></p>
+<p class="MsoNormal" style="margin-left: 72.0pt; text-indent: -18.0pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;;"><span>o<span style="font: 7.0pt &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp; </span></span></span><strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Module name (ex: xSystemSecurity</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> becomes <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">cSystemSecurity</span></strong>) </span></p>
+<p class="MsoNormal" style="margin-left: 72.0pt; text-indent: -18.0pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;;"><span>o<span style="font: 7.0pt &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span> <strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Resource folder (ex: xUAC</span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"> becomes <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Contoso_cUAC</span></strong>) </span></p>
+<p class="MsoNormal" style="margin-left: 72.0pt; text-indent: -18.0pt;"><span style="font-size: 10.0pt; font-family: &quot;Courier New&quot;;"><span>o<span style="font: 7.0pt &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span> <strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Resource Name (ex: xUAC </span></strong><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">becomes <strong><span style="font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Contoso_cIEEsc</span></strong>) </span></p>
+<p class="MsoNormal" style="margin-left: 36.0pt; text-indent: -18.0pt;"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"><span>2.<span style="font: 7.0pt &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span> <span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Update module and metadata information in the module manifest </span></p>
+<p class="MsoNormal" style="margin-left: 36.0pt; text-indent: -18.0pt;"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;"><span>3.<span style="font: 7.0pt &quot;Times New Roman&quot;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span> <span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Update any configuration that use these resources </span></p>
+<p><em><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">We reserve resource and module names without prefixes ("x" or "c") for future use (e.g. "xUAC"). If the next version of Windows Server ships with a "UAC" resource, we don't want to break  any configurations that use any community modifications. Please keep a prefix such as "c" on all community modifications.</span></em></p>
+<h1><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Versions</span></h1>
+<p><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">1.0.0.0</span></p>
+<ul type="disc">
+<li class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">Initial release with the following resources </span> 
+<ul type="circle">
+<li class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xUAC</span> </li>
+<li class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">xIEEsc </span></li>
+</ul>
+</li>
+</ul>
+<h1 style="margin-bottom: .0001pt;"><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Example: Disable User Account Control </span></h1>
+<p class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">This configuration will never show the UAC prompt and will disable all User Account Control settings. This setting when changed requires a restart of the computer.</span></p>
+<p class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">&nbsp;</span></p>
+<div class="scriptcode">
+<div class="pluginEditHolder" pluginCommand="mceScriptCode">
+<div class="title"><span>PowerShell</span></div>
+<div class="pluginLinkHolder"><span class="pluginEditHolderLink">Edit</span>|<span class="pluginRemoveHolderLink">Remove</span></div>
+<span class="hidden">powershell</span>
+<pre class="hidden">Configuration NeverNotifyAndDisableAll
+{
+    Import-DSCResource -Module MSFT_xSystemSecurity -Name xUac
+ 
+    Node localhost
+    {
+        xUAC NeverNotifyAndDisableAll
+        {
+            Setting = "NeverNotifyAndDisableAll"
+        }
+    }
+} </pre>
+<div class="preview">
+<pre class="powershell">Configuration&nbsp;NeverNotifyAndDisableAll&nbsp;
+{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Import<span class="powerShell__operator">-</span>DSCResource&nbsp;<span class="powerShell__operator">-</span>Module&nbsp;MSFT_xSystemSecurity&nbsp;<span class="powerShell__operator">-</span>Name&nbsp;xUac&nbsp;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Node&nbsp;localhost&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xUAC&nbsp;NeverNotifyAndDisableAll&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setting&nbsp;=&nbsp;<span class="powerShell__string">"NeverNotifyAndDisableAll"</span>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+}&nbsp;</pre>
+</div>
+</div>
+</div>
+<h1 style="margin-bottom: .0001pt;"><span style="font-size: 18.0pt; font-family: &quot;Calibri Light&quot;,&quot;sans-serif&quot;; color: #2e74b5;">Example: Disable IE Enhanced Security Configuration</span></h1>
+<p class="MsoNormal"><span style="font-size: 13.5pt; font-family: &quot;Calibri&quot;,&quot;sans-serif&quot;;">This configuration will disable IE Enhanced Security Configuration. </span></p>
+<div class="scriptcode">
+<div class="pluginEditHolder" pluginCommand="mceScriptCode">
+<div class="title"><span>PowerShell</span></div>
+<div class="pluginLinkHolder"><span class="pluginEditHolderLink">Edit</span>|<span class="pluginRemoveHolderLink">Remove</span></div>
+<span class="hidden">powershell</span>
+<pre class="hidden">Configuration DisableLocalIEEsc
+{
+    Import-DSCResource -Module MSFT_xSystemSecurity -Name xIEEsc
+ 
+    Node localhost
+    {
+        xIEEsc DisableIEEsc
+        {
+            IsEnabled = $false
+            UserRole = "Users"
+        }
+    }
+} </pre>
+<div class="preview">
+<pre class="powershell">Configuration&nbsp;DisableLocalIEEsc&nbsp;
+{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Import<span class="powerShell__operator">-</span>DSCResource&nbsp;<span class="powerShell__operator">-</span>Module&nbsp;MSFT_xSystemSecurity&nbsp;<span class="powerShell__operator">-</span>Name&nbsp;xIEEsc&nbsp;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Node&nbsp;localhost&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;xIEEsc&nbsp;DisableIEEsc&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsEnabled&nbsp;=&nbsp;<span class="powerShell__variable">$false</span>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UserRole&nbsp;=&nbsp;<span class="powerShell__string">"Users"</span>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+}&nbsp;</pre>
+</div>
+</div>
+</div>
+<div class="endscriptcode">&nbsp;</div>
+<p>&nbsp;</p>
+</div>
