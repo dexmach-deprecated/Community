@@ -17,17 +17,17 @@ Actions taken:
 	*	Select A2 as size
 	*	Provide a username
 	*	Provide a password and confirm
-	*	Click **Next**
-8. Virtual Machine Configuration II
-	*	Select a cloud service (Inovativ)
-	*	Select the region West EU
-	*	Choose a storage account (portal…)
-	*	Click **Next**
-9. Virtual Machine Configuration III
-	*	Install the VM agent (default)
-	*	Explain custom script (Startup script can be specified)
-	*	Possibility for security extensions
-	*	Click **Next** to apply
+	*	Click **Next**  
+8. Virtual Machine Configuration II  
+	*	Select a cloud service (Inovativ)  
+	*	Select the region West EU  
+	*	Choose a storage account (portal…)  
+	*	Click **Next**  
+9. Virtual Machine Configuration III  
+	*	Install the VM agent (default)  
+	*	Explain custom script (Startup script can be specified)  
+	*	Possibility for security extensions  
+	*	Click **Next** to apply  
 
 [1]: http://manage.windowsazure.com "Windows Azure Portal"
 [2]: http://portal.azure.com "Preview Azure Portal"
