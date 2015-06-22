@@ -3,15 +3,15 @@
 #####Discover the [Azure portal][1] and the [new Azure portal][2].
 
 Actions taken:
-1. Log into portal
-2. Browse the different elements
-3. Select the Virtual Machines tab
-4. Click on **New** in the bottom banner
-5. Choose **Virtual Machine >  From Gallery**
-6. Choose an Image
-	*	Choose Windows Server 2012 R2 Datacenter
-	*	Click **Next**
-7. Virtual Machine Configuration
+1. Log into portal  
+2. Browse the different elements  
+3. Select the Virtual Machines tab  
+4. Click on **New** in the bottom banner  
+5. Choose **Virtual Machine >  From Gallery**  
+6. Choose an Image  
+	*	Choose Windows Server 2012 R2 Datacenter  
+	*	Click **Next**  
+7. Virtual Machine Configuration  
 	*	Choose the latest release date
 	*	Provide a name
 	*	Select A2 as size
