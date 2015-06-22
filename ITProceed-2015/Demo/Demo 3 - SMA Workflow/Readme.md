@@ -1,6 +1,6 @@
-## Demo 2
+## Demo 3
 
-#####Move the PowerShell script into SMA[Service Management automation] (transform to workflow aka Runbook).
+#####Move the PowerShell script into SMA - Service Management automation (transform to workflow aka Runbook).
 
 Actions taken:  
 1.	Logon to WAP  
