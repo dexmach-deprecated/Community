@@ -12,12 +12,12 @@ Actions taken:
 	*	Choose Windows Server 2012 R2 Datacenter  
 	*	Click **Next**  
 7. Virtual Machine Configuration  
-	*	Choose the latest release date
-	*	Provide a name
-	*	Select A2 as size
-	*	Provide a username
-	*	Provide a password and confirm
-	*	Click **Next**  
+	* 	Choose the latest release date  
+	*	Provide a name  
+	*	Select A2 as size  
+	*	Provide a username  
+	*	Provide a password and confirm  
+	*	Click **Next**    
 8. Virtual Machine Configuration II  
 	*	Select a cloud service (Inovativ)  
 	*	Select the region West EU  
