@@ -25,3 +25,28 @@ Below are the parameters that the template expects
 |VMAdminUserName| the local administrator account|
 |VMAdminPassword|the password for the local administrator account|
 |VMWindowsOSVersion| the windows flavors.<br>accepted values are:<br>* 2008-R2-SP1 <br>* 2012-Datacenter<br>* 2012-R2-Datacenter<br>* Windows-Server-Technical-Preview|
+
+### demo outline
+1. Open Visual studio
+2. click New Project > Azure Resource Group
+3. choose 'blank template'
+4. click 'add resource' in the JSON view pane on the left
+5. select 'Windows Virtual Machine'
+    * provide a name
+    * click 'new' in the storage account field and provide a name
+    * Click 'new' in the virtual network field and provide a name
+6. Click 'OK'
+7. Click 'add resource' again to add the DSC extension
+8. Select 'DSC extension'
+    * Select the VM created in the previous steps
+9. Click 'OK'
+10. locate the 'osProfile' section of the Virtual Machine resource
+11. add a 'secrets' property and use intellisense to provide the following info:
+    * sourceVault > id
+    * vaultCertificates > certificateUrl and certificateStore
+12. Save the file
+13. In the solution explorer right click the solution and select deploy
+14. Create a resource group
+15. Click 'Deploy'
+16. provide values for the parameters
+17. Click Cancel, open Github and deploy from there.
