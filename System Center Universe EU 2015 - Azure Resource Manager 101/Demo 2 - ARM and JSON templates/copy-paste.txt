@@ -4,6 +4,17 @@
     "vaultResourceGroup": "SCU2015Vault_RG",
     "secretUrlWithVersion": "https://scu2015vault.vault.azure.net:443/secrets/scu2015/748f7225c8a74a9091add09a6a95b99f"
 
+
+ "sourceVault": {
+                // the function RESOURCEID() returns the identifier of the resource (/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/{resourceProviderNamespace}/{resourceType}/{resourceName})
+                "id": "[resourceId(variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+              },
+              "vaultCertificates": [
+                {
+                  "certificateUrl": "[variables('secretUrlWithVersion')]",
+                  "certificateStore": "My"
+                }
+
 #End region
 
 
@@ -11,5 +22,6 @@
 
     "dscModulesUrl": "https://raw.githubusercontent.com/Inovativ/Community/master/System%20Center%20Universe%20EU%202015%20-%20Azure%20Resource%20Manager%20101/PowerShell/WebRole-configuration.zip",
     "dscConfigFunction": "WebRole-configuration.ps1\\SCUWebrole",
+
 
 #End region
