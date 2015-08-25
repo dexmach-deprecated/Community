@@ -1,0 +1,222 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sortestName": {
+      "type": "string"
+    },
+    "sortestType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_ZRS"
+      ]
+    },
+    "sortestLocation": {
+      "type": "string",
+      "defaultValue": "West Europe",
+      "allowedValues": [
+        "East US",
+        "West US",
+        "West Europe",
+        "East Asia",
+        "South East Asia"
+      ]
+    },
+    "vnettestLocation": {
+      "type": "string",
+      "defaultValue": "West Europe",
+      "allowedValues": [
+        "East US",
+        "West US",
+        "West Europe",
+        "East Asia",
+        "South East Asia"
+      ]
+    },
+    "vmtestName": {
+      "type": "string"
+    },
+    "vmtestAdminUserName": {
+      "type": "string"
+    },
+    "vmtestAdminPassword": {
+      "type": "securestring"
+    },
+    "vmtestWindowsOSVersion": {
+      "type": "string",
+      "defaultValue": "2012-R2-Datacenter",
+      "allowedValues": [
+        "2008-R2-SP1",
+        "2012-Datacenter",
+        "2012-R2-Datacenter",
+        "Windows-Server-Technical-Preview"
+      ]
+    }
+     
+  },
+  "variables": {
+    "vnettestPrefix": "10.0.0.0/16",
+    "vnettestSubnet1Name": "Subnet-1",
+    "vnettestSubnet1Prefix": "10.0.0.0/24",
+    "vnettestSubnet2Name": "Subnet-2",
+    "vnettestSubnet2Prefix": "10.0.1.0/24",
+    "vmtestImagePublisher": "MicrosoftWindowsServer",
+    "vmtestImageOffer": "WindowsServer",
+    "vmtestOSDiskName": "vmtestOSDisk",
+    "vmtestVmSize": "Standard_D1",
+    "vmtestVnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'vnettest')]",
+    "vmtestSubnetRef": "[concat(variables('vmtestVnetID'), '/subnets/', variables('vnettestSubnet1Name'))]",
+    "vmtestStorageAccountContainerName": "vhds",
+    "vmtestNicName": "[concat(parameters('vmtestName'), 'NetworkInterface')]",
+        "dscModulesUrl": "https://raw.githubusercontent.com/Inovativ/Community/master/System%20Center%20Universe%20EU%202015%20-%20Azure%20Resource%20Manager%20101/PowerShell/WebRole-configuration.zip",
+    "dscConfigFunction": "WebRole-configuration.ps1\\SCUWebrole",
+  },
+  "resources": [
+    {
+      "name": "[parameters('sortestName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[parameters('sortestLocation')]",
+      "apiVersion": "2015-05-01-preview",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "sortest"
+      },
+      "properties": {
+        "accountType": "[parameters('sortestType')]"
+      }
+    },
+    {
+      "name": "vnettest",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[parameters('vnettestLocation')]",
+      "apiVersion": "2015-05-01-preview",
+      "dependsOn": [ ],
+      "tags": {
+        "displayName": "vnettest"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('vnettestPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('vnettestSubnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('vnettestSubnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('vnettestSubnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('vnettestSubnet2Prefix')]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[variables('vmtestNicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[parameters('vnettestLocation')]",
+      "apiVersion": "2015-05-01-preview",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', 'vnettest')]"
+      ],
+      "tags": {
+        "displayName": "vmtestNic"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('vmtestSubnetRef')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "[parameters('vmtestName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[parameters('vnettestLocation')]",
+      "apiVersion": "2015-05-01-preview",
+      "dependsOn": [
+        "[concat('Microsoft.Storage/storageAccounts/', parameters('sortestName'))]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('vmtestNicName'))]"
+      ],
+      "tags": {
+        "displayName": "vmtest"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('vmtestVmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('vmtestName')]",
+          "adminUsername": "[parameters('vmtestAdminUsername')]",
+          "adminPassword": "[parameters('vmtestAdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('vmtestImagePublisher')]",
+            "offer": "[variables('vmtestImageOffer')]",
+            "sku": "[parameters('vmtestWindowsOSVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "vmtestOSDisk",
+            "vhd": {
+              "uri": "[concat('http://', parameters('sortestName'), '.blob.core.windows.net/', variables('vmtestStorageAccountContainerName'), '/', variables('vmtestOSDiskName'), '.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmtestNicName'))]"
+            }
+          ]
+        }
+      },
+        "resources": [
+            {
+                "name": "vm-dsc",
+                "type": "extensions",
+                "location": "[parameters('vnettestLocation')]",
+                "apiVersion": "2015-05-01-preview",
+                "dependsOn": [
+                    "[concat('Microsoft.Compute/virtualMachines/', parameters('vmtestName'))]"
+                ],
+                "tags": {
+                    "displayName": "vm-dsc"
+                },
+                "properties": {
+                    "publisher": "Microsoft.Powershell",
+                    "type": "DSC",
+                    "typeHandlerVersion": "1.7",
+                    "settings": {
+                        "modulesUrl": "[variables('dscModulesUrl')]",
+                        "sasToken": "",
+                        "configurationFunction": "[variables('dscConfigFunction')]",
+                        "properties": { }
+                    },
+                    "protectedSettings": { }
+                }
+            }
+        ]
+    }
+  ],
+    "outputs": {
+    }
+}
