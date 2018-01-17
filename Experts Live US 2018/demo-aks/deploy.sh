@@ -3,7 +3,7 @@
 ########################
 # include the magic
 ########################
-. ../demo-magic.sh
+. ../utils.sh
 
 
 ##
@@ -38,20 +38,20 @@ aksName="scak8s"
 email="stijn.callebaut@itnetx.be"
 
 #create resourcegroup
-pe "az group create --location $location --name $rgname"
+run "az group create --location $location --name $rgname"
 
 #create registry
-pe "az acr create --location $location --name $acrName --resource-group $rgname --sku Basic --admin-enabled"
-pe "pass="$(az acr credential show --name $acrName --query "passwords[0].value" -o tsv)""
+run "az acr create --location $location --name $acrName --resource-group $rgname --sku Basic --admin-enabled"
+run "pass="$(az acr credential show --name $acrName --query "passwords[0].value" -o tsv)""
 
 #create cluster
-pe "az aks create --location $location --name $aksName --resource-group $rgname --node-count 4 --generate-ssh-keys"
-pe "az aks get-credentials --resource-group $rgname -n $aksName"
+run "az aks create --location $location --name $aksName --resource-group $rgname --node-count 4 --generate-ssh-keys"
+run "az aks get-credentials --resource-group $rgname -n $aksName"
 
 #get kubectl and verify
-p "az aks install-cli"
-pe "kubectl get nodes"
+run "az aks install-cli"
+run "kubectl get nodes"
 #create secret
-pe "kubectl create secret docker-registry acr --docker-server=$acrName.azurecr.io --docker-username=$acrName --docker-password=$pass --docker-email=$email"
-pe "kubectl describe secret"
+run "kubectl create secret docker-registry acr --docker-server=$acrName.azurecr.io --docker-username=$acrName --docker-password=$pass --docker-email=$email"
+run "kubectl describe secret"
 
