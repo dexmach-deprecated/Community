@@ -1,0 +1,6 @@
+# demo 01: make work visibile
+
+1. log on to VSTS
+2. create a project (scrum or agile template)
+3. add work. explain the different levels
+4. organize your 'code' and from the workitems

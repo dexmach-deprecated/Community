@@ -1,0 +1,6 @@
+#demo 03: release!
+
+1. create a release to target multiple environments
+2. explain gates
+3. show result
+
