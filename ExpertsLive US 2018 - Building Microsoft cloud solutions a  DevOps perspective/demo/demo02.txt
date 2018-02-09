@@ -1,0 +1,3 @@
+# demo 2: Standarize on delivery
+1. from the portal, click build and release
+2. create a build, some tasks included (test, + delivery)

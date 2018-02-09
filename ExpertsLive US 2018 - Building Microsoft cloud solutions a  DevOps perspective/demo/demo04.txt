@@ -1,0 +1,6 @@
+#demo 04: security and compliance
+1. add vault integration
+2. discuss how to treat sensitive information
+    a. secrets as variables in VSTS
+    b. keyvault integration (vsts task)
+    c. keyvault integration (ref in ARM template)
